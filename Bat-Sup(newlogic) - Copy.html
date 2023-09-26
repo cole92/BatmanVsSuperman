@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const batman = {
+        energija: 100,
+        oruzje: ["pesnica", "udarac nogom", "surikeni"],
+        blokiranje: false,
+        smanjiEnergiju(x) {
+          this.energija -= x;
+          if (this.energija <= 0) {
+            this.energija = 0;
+            console.log("Batman je mrtav!");
+          }
+        },
+        napadni(neprijatelj, udarac) {
+          let steta = 0;
+
+          if (udarac == "pesnica") {
+            steta = 10;
+          } else if (udarac == "udarac nogom") {
+            steta = 20;
+          } else if (udarac == "surikeni") {
+            steta = 50;
+          } else {
+            alert("Nepoznat udarac!");
+            return;
+          }
+          if (neprijatelj.izbegavanje) {
+            steta = 0;
+            neprijatelj.izbegavanje = false;
+          }
+          neprijatelj.smanjiEnergiju(steta);
+        },
+        odbrana(tipOdbrane) {
+          if (tipOdbrane == "blok") {
+            this.blokiranje = true;
+          } else if (tipOdbrane == "lecenje") {
+            this.energija += 40;
+            if (this.energija > 100) {
+              this.energija = 100;
+            }
+          } else {
+            console.log("Nepoznata odbrana!");
+          }
+        },
+      };
+
+      const superman = {
+        energija: 100,
+        oruzje: ["laser", "ledeni dah", "super udarac"],
+        izbegavanje: false,
+        smanjiEnergiju(x) {
+          this.energija -= x;
+          if (this.energija <= 0) {
+            this.energija = 0;
+            console.log("Superman je mrtav!");
+          }
+        },
+        napadni(neprijatelj, udarac) {
+          let steta = 0;
+          if (udarac == "laser") {
+            steta = 30;
+          } else if (udarac == "ledeni dah") {
+            steta = 40;
+          } else if (udarac == "super udarac") {
+            steta = 60;
+          } else {
+            alert("Nepoznat udarac!");
+            return;
+          }
+          if (neprijatelj.blokiranje) {
+            steta *= 0.6;
+            neprijatelj.blokiranje = false;
+          }
+          neprijatelj.smanjiEnergiju(steta);
+        },
+        odbrana(tipOdbrane) {
+          if (tipOdbrane == "izbegavanje") {
+            this.izbegavanje = true;
+          } else {
+            console.log("Nepoznata odbrana!");
+          }
+        },
+      };
+
+      batman.napadni(superman, 'surikeni')
+      console.log(superman.energija);
+      superman.odbrana('izbegavanje')
+      batman.napadni(superman, 'surikeni')
+      console.log(superman.energija);
+
+    </script>
+  </body>
+</html>
