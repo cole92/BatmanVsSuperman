@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="app.css">
   </head>
 
   <body>
@@ -29,6 +30,13 @@
       </div> <br>
       <div>
         <button type="button" id="applyAction">Primeni akciju</button>
+      </div>
+
+      <div class="energyDiv">
+        <p id="BatmanEnergyP">Trenutna Energija</p>
+      </div>
+      <div class="energyDiv">
+        <p id="SupermanEnergyP">Trenutna Energija</p>
       </div>
     </form>
 
@@ -142,5 +150,28 @@
         odabraniElement.appendChild(optionElement)
       })
     }
+
+    document.getElementById('applyAction').addEventListener('click', function(event){
+      const heroj = document.getElementById('hero').value
+      const napad = document.getElementById('attack').value
+      const odbrana = document.getElementById('defense').value
+
+      let napadac, branitelj;
+
+      if (heroj === 'batman') {
+        napadac = heroji['batman'];
+        branitelj = heroji['superman']; 
+      } else {
+        napadac = heroji['superman'];
+        branitelj = heroji['batman'];
+      }
+      if (napad) {
+        napadac.napadni(branitelj, napad.replace(/_/g, ' '))
+      } else if (odbrana) {
+        napadac.odbrana(odbrana.replace(/_/g, ' '))
+      }
+      console.log("Energija Batmana:", heroji['batman'].energija);
+      console.log("Energija Supermana:", heroji['superman'].energija);
+    })
   </script>
 </html>
