@@ -1,177 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="app.css">
-  </head>
 
-  <body>
-    <form id="heroForm">
-      <div>
-        <label for="hero">Izaberi superheroja:</label>
-        <select id="hero">
-          <option value="batman">Batman</option>
-          <option value="superman">Superman</option>
-        </select>
-      </div> <br>
-      <div>
-        <label for="attack">Izaberi napad:</label>
-        <select id="attack">
-          
-        </select>
-      </div> <br>
-      <div>
-        <label for="defense">Izaberi odbranu:</label>
-        <select id="defense">
-          
-        </select>
-      </div> <br>
-      <div>
-        <button type="button" id="applyAction">Primeni akciju</button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
 
+<body>
+  <div class="container">
+    <div class="hero" id="batman">
+      <h2>Batman</h2>
+      <!--Ovde dodajem kontrole i sve sto zelim za batmana.-->
       <div class="energyDiv">
-        <p id="BatmanEnergyP">Trenutna Energija</p>
+        <p id="batmanEnergyP">Energija: 100</p>
       </div>
+      <!--Ovde dodajem kontrole za napad,odbranu,slike itd-->
+    </div>
+
+    <div class="hero" id="superman">
+      <h2>Superman</h2>
+      <!--Ovde dodajemo Kontrole i sve sto zelimo za supermana.-->
       <div class="energyDiv">
-        <p id="SupermanEnergyP">Trenutna Energija</p>
+        <p id="supermanEnergyP">Energija: 100</p>
       </div>
-    </form>
+    </div>
+    <!--Ovde dodajem kontrole za napad,odbranu,slike itd-->
+  </div>
+</body>
 
-  </body>
+<script src="js/script.js"></script>
 
-  <script>
-    
-    const batman = {
-      energija: 100,
-      oruzje: ["pesnica", "udarac nogom", "surikeni"],
-      blokiranje: false,
-      smanjiEnergiju(x) {
-        this.energija -= x;
-        if (this.energija <= 0) {
-          this.energija = 0;
-          console.log("Batman je mrtav!");
-        }
-      },
-      napadni(neprijatelj, udarac) {
-        let steta = 0;
-
-        if (udarac == "pesnica") {
-          steta = 10;
-        } else if (udarac == "udarac nogom") {
-          steta = 20;
-        } else if (udarac == "surikeni") {
-          steta = 50;
-        } else {
-          alert("Nepoznat udarac!");
-          return;
-        }
-        if (neprijatelj.izbegavanje) {
-          steta = 0;
-          neprijatelj.izbegavanje = false;
-        }
-        neprijatelj.smanjiEnergiju(steta);
-      },
-      odbrana(tipOdbrane) {
-        if (tipOdbrane == "blok") {
-          this.blokiranje = true;
-        } else if (tipOdbrane == "lecenje") {
-          this.energija += 40;
-          if (this.energija > 100) {
-            this.energija = 100;
-          }
-        } else {
-          console.log("Nepoznata odbrana!");
-        }
-      },
-    };
-
-    const superman = {
-      energija: 100,
-      oruzje: ["laser", "ledeni dah", "super udarac"],
-      izbegavanje: false,
-      smanjiEnergiju(x) {
-        this.energija -= x;
-        if (this.energija <= 0) {
-          this.energija = 0;
-          console.log("Superman je mrtav!");
-        }
-      },
-      napadni(neprijatelj, udarac) {
-        let steta = 0;
-        if (udarac == "laser") {
-          steta = 30;
-        } else if (udarac == "ledeni dah") {
-          steta = 40;
-        } else if (udarac == "super udarac") {
-          steta = 60;
-        } else {
-          alert("Nepoznat udarac!");
-          return;
-        }
-        if (neprijatelj.blokiranje) {
-          steta *= 0.4;
-          neprijatelj.blokiranje = false;
-        }
-        neprijatelj.smanjiEnergiju(steta);
-      },
-      odbrana(tipOdbrane) {
-        if (tipOdbrane == "izbegavanje") {
-          this.izbegavanje = true;
-        } else {
-          console.log("Nepoznata odbrana!");
-        }
-      },
-    };
-    const heroji = {
-      batman: batman,
-      superman: superman
-    };
-    console.log(heroji);
-
-    document.getElementById('hero').addEventListener('change', function(event){
-      const odabraniHeroj = event.target.value;
-      const napadi = heroji[odabraniHeroj].oruzje;
-      const odbrane = odabraniHeroj === 'batman' ? ['blok', 'lecenje'] : ['izbegavanje'];
-
-      populateSelect('attack', napadi);
-      populateSelect('defense', odbrane);
-    });
-
-    function populateSelect(elementId, options){
-      const odabraniElement = document.getElementById(elementId);
-      odabraniElement.innerHTML = '';
-      options.forEach(option => {
-        const optionElement = document.createElement('option');
-        optionElement.value = option.toLowerCase().replace(/ /g, '_');
-        optionElement.textContent = option;
-        odabraniElement.appendChild(optionElement)
-      })
-    }
-
-    document.getElementById('applyAction').addEventListener('click', function(event){
-      const heroj = document.getElementById('hero').value
-      const napad = document.getElementById('attack').value
-      const odbrana = document.getElementById('defense').value
-
-      let napadac, branitelj;
-
-      if (heroj === 'batman') {
-        napadac = heroji['batman'];
-        branitelj = heroji['superman']; 
-      } else {
-        napadac = heroji['superman'];
-        branitelj = heroji['batman'];
-      }
-      if (napad) {
-        napadac.napadni(branitelj, napad.replace(/_/g, ' '))
-      } else if (odbrana) {
-        napadac.odbrana(odbrana.replace(/_/g, ' '))
-      }
-      console.log("Energija Batmana:", heroji['batman'].energija);
-      console.log("Energija Supermana:", heroji['superman'].energija);
-    })
-  </script>
 </html>
