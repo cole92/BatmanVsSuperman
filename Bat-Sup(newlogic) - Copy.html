@@ -10,26 +10,44 @@
 
 <body>
   <div class="container">
-    <div class="hero" id="batman">
+    <section class="hero" id="batman">
       <h2>Batman</h2>
       <!--Ovde dodajem kontrole i sve sto zelim za batmana.-->
-      <div class="energyDiv">
-        <p id="batmanEnergyP">Energija: 100</p>
-      </div>
-      <!--Ovde dodajem kontrole za napad,odbranu,slike itd-->
-    </div>
+      SLIKA
 
-    <div class="hero" id="superman">
+      <label for="batmanAttack">Izaberi napad:</label>
+      <select id="batmanAttack"></select>
+      <button id="batmanSuperAttack" disabled>Super Udarac</button>
+
+      <label for="batmanDefense">Izaberi odbranu:</label>
+      <select id="batmanDefense"></select>
+
+      <div class="energyDiv">
+        <p id="batmanHealthP">Zivot: 100</p>
+        <p id="batmanEnergyP">Energija: 0</p>
+      </div>
+    </section>
+
+    <section class="hero" id="superman">
       <h2>Superman</h2>
       <!--Ovde dodajemo Kontrole i sve sto zelimo za supermana.-->
+      SLIKA
+
+      <label for="supermanAttack">Izaberi napad:</label>
+      <select id="supermanAttack"></select>
+      <button id="supermanSuperAttack" disabled>Super Udarac</button>
+
+      <label for="supermanDefense">Izaberi odbranu:</label>
+      <select id="supermanDefense"></select>
+
       <div class="energyDiv">
-        <p id="supermanEnergyP">Energija: 100</p>
+        <p id="supermanHealthP">Zivot: 100</p>
+        <p id="supermanEnergyP">Energija: 0</p>
       </div>
-    </div>
-    <!--Ovde dodajem kontrole za napad,odbranu,slike itd-->
+    </section>
+
+    <button id="gameStart">Start</button>
   </div>
-</body>
-
-<script src="js/script.js"></script>
-
+  
+  <script src="js/script.js"></script>
 </html>
