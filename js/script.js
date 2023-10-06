@@ -2,6 +2,7 @@ const batman = {
     zivot: 100,
     energija: 0,
     oruzje: ["pesnica", "udarac nogom", "surikeni"],
+    odbrane: ["blok", "lecenje"],
     blokiranje: false,
     smanjiZivot(x) {
         this.zivot -= x;
@@ -33,15 +34,17 @@ const batman = {
         neprijatelj.smanjiZivot(steta);
     },
     odbrana(tipOdbrane) {
-        if (tipOdbrane == 'blok') {
+        if (tipOdbrane == 'blok' && this.energija >= 40) {
+            this.energija -= 40;
             this.blokiranje = true;
-        } else if (tipOdbrane == 'lecenje') {
-            this.energija += 40;
-            if (this.energija > 100) {
-                this.energija = 100;
+        } else if (tipOdbrane == 'lecenje' && this.energija >= 50) {
+            this.energija -= 50;
+            this.zivot += 50;
+            if (this.zivot > 100) {
+                this.zivot = 100;
             }
         } else {
-            console.log('Nepoznata odbrana!');
+            console.log('Nepoznata odbrana ili nedovoljno energije!');
         }
     },
     povecajEnergiju(x) {
@@ -61,6 +64,7 @@ const superman = {
     zivot: 100,
     energija: 0,
     oruzje: ["laser", "ledeni dah", "super udarac"],
+    odbrane: ["Izbegavanje"],
     izbegavanje: false,
     smanjiZivot(x) {
         this.zivot -= x;
@@ -92,10 +96,12 @@ const superman = {
         neprijatelj.smanjiZivot(steta);
     },
     odbrana(tipOdbrane) {
-        if (tipOdbrane == 'izbegavanje') {
+        if (tipOdbrane == 'izbegavanje' && this.energija >= 70) {
+            this.energija -= 70;
             this.izbegavanje = true;
-        } else {
-            console.log('Nepoznata odbrana!');
+        }
+          else {
+            console.log('Nepoznata odbrana ili nema dovoljno energije!');
         }
     },
     povecajEnergiju(x) {
@@ -110,3 +116,23 @@ const superman = {
         }
     }
 }
+// Funkcija za popunjavanje select menija.
+function popuniSelectAtk() {
+    const batmanSelectAtk = document.getElementById('batmanAttack');
+    batman.oruzje.forEach(udarac => {
+        const option = document.createElement('option');
+        option.value = udarac;
+        option.innerText = udarac;
+
+        batmanSelectAtk.appendChild(option)
+    })
+    const supermanSelectAtk = document.getElementById('supermanAttack');
+    superman.oruzje.forEach(udarac => {
+        const option = document.createElement('option');
+        option.value = udarac;
+        option.innerText = udarac;
+
+        supermanSelectAtk.appendChild(option)
+    })
+}
+popuniSelectAtk()
