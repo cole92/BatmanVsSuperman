@@ -1,5 +1,5 @@
 # BatmanVsSuperman
-POKUSAJ
+
 Introduction
 This project represents a simulation of a battle between two superheroes: Batman and Superman. Each superhero has their specific attacks, energy, and defense mechanisms.
 

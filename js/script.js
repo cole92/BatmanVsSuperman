@@ -116,7 +116,7 @@ const superman = {
         }
     }
 }
-// Funkcija za popunjavanje select menija.
+// Funkcija za popunjavanje menija za napad.
 function popuniSelectAtk() {
     const batmanSelectAtk = document.getElementById('batmanAttack');
     batman.oruzje.forEach(udarac => {
@@ -136,4 +136,23 @@ function popuniSelectAtk() {
     })
 }
 popuniSelectAtk()
-//Pokusaj
+// Funkcija za popunjavanje menija za odbrane.
+function popuniSelectDef() {
+    const batmanSelectDef = document.getElementById('batmanDefense');
+    batman.odbrane.forEach(odbrana => {
+        const option = document.createElement('option');
+        option.value = odbrana;
+        option.innerText = odbrana;
+
+        batmanSelectDef.appendChild(option)
+    })
+    const supermanSelectDef = document.getElementById('supermanDefense');
+    superman.odbrane.forEach(odbrana => {
+        const option = document.createElement('option');
+        option.value = odbrana;
+        option.innerText = odbrana;
+
+        supermanSelectDef.appendChild(option)
+    })
+}
+popuniSelectDef()
