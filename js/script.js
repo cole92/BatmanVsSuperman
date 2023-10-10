@@ -1,8 +1,8 @@
 const batman = {
     zivot: 100,
     energija: 0,
-    oruzje: ["pesnica", "udarac nogom", "surikeni"],
-    odbrane: ["blok", "lecenje"],
+    oruzje: ["pesnica", "udarac nogom", "surikeni", "none(default)"],
+    odbrane: ["blok", "lecenje", "none(default)"],
     blokiranje: false,
     smanjiZivot(x) {
         this.zivot -= x;
@@ -23,6 +23,8 @@ const batman = {
         } else if (udarac == 'surikeni' && this.energija >= 20) {
             steta = 30;
             this.energija -= 20;
+        } else if (udarac == 'none(default)') {
+            console.log("Nema izabranog udarca.");
         } else {
             alert ('Nepoznat udarac ili nedovoljno energije za surikene!')
             return;
@@ -43,6 +45,8 @@ const batman = {
             if (this.zivot > 100) {
                 this.zivot = 100;
             }
+        } else if (tipOdbrane == 'none(default)') {
+            console.log("Nema izabranog udarca.");
         } else {
             console.log('Nepoznata odbrana ili nedovoljno energije!');
         }
@@ -63,8 +67,8 @@ const batman = {
 const superman = {
     zivot: 100,
     energija: 0,
-    oruzje: ["laser", "ledeni dah", "super udarac"],
-    odbrane: ["Izbegavanje"],
+    oruzje: ["laser", "ledeni dah", "super udarac", "none(default)"],
+    odbrane: ["Izbegavanje", "none(default)"],
     izbegavanje: false,
     smanjiZivot(x) {
         this.zivot -= x;
@@ -85,6 +89,8 @@ const superman = {
         } else if (udarac == 'super udarac' && this.energija >= 30) {
             steta = 40;
             this.energija -= 30;
+        } else if (udarac == 'none(default)') {
+            console.log("Nema izabranog udarca.");
         } else {
             alert ('Nepoznat udarac ili nedovoljno energije za super udarac!')
             return;
@@ -99,6 +105,8 @@ const superman = {
         if (tipOdbrane == 'izbegavanje' && this.energija >= 70) {
             this.energija -= 70;
             this.izbegavanje = true;
+        } else if (tipOdbrane == 'none(default)') {
+            console.log("Nema izabranog udarca.");
         }
           else {
             console.log('Nepoznata odbrana ili nema dovoljno energije!');
@@ -156,3 +164,37 @@ function popuniSelectDef() {
     })
 }
 popuniSelectDef()
+// Funkcija za(ukljuci - iskljuci) obranu ili napad
+function AtkOrDef(attackElem, defenseElem) {
+    attackElem.addEventListener('change', function(){
+        defenseElem.disabled = this.value ? true : false;
+    });
+    defenseElem.addEventListener('change', function(){
+        attackElem.disabled = this.value ? true : false;
+    });
+}
+AtkOrDef(document.getElementById('batmanAttack'), document.getElementById('batmanDefense'));
+AtkOrDef(document.getElementById('supermanAttack'), document.getElementById('supermanDefense'));
+// Funkcija za otkljucavanje udaraca.
+function unlock(atkElem, defElem) {
+    atkElem.addEventListener('change', function(){
+        if (this.value === 'none(default)') {
+            defElem.disabled = false;
+        } else {
+            defElem.disabled = true;
+        }
+    })
+    defElem.addEventListener('change', function(){
+        if (this.value === 'none(default)') {
+            atkElem.disabled = false;
+        } else {
+            atkElem.disabled = true;
+        }
+    })
+}
+const batmanAttack = document.getElementById('batmanAttack');
+const batmanDefense = document.getElementById('batmanDefense');
+const supermanAttack = document.getElementById('supermanAttack');
+const supermanDefense = document.getElementById('supermanDefense');
+unlock(batmanAttack, batmanDefense);
+unlock(supermanAttack,supermanDefense);
