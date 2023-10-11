@@ -1,6 +1,7 @@
 const batman = {
     zivot: 100,
     energija: 0,
+    rezervisanaEnergija: 0,
     oruzje: ["pesnica", "udarac nogom", "surikeni", "none(default)"],
     odbrane: ["blok", "lecenje", "none(default)"],
     blokiranje: false,
@@ -67,6 +68,7 @@ const batman = {
 const superman = {
     zivot: 100,
     energija: 0,
+    rezervisanaEnergija: 0,
     oruzje: ["laser", "ledeni dah", "super udarac", "none(default)"],
     odbrane: ["Izbegavanje", "none(default)"],
     izbegavanje: false,
