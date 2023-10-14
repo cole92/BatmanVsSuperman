@@ -200,3 +200,26 @@ const supermanAttack = document.getElementById('supermanAttack');
 const supermanDefense = document.getElementById('supermanDefense');
 unlock(batmanAttack, batmanDefense);
 unlock(supermanAttack,supermanDefense);
+
+function gameStart() {
+        document.getElementById('gameStart').addEventListener('click', function () {
+        let currentPlayer;
+        const randomValue = Math.round(Math.random());
+        if (randomValue <= 0.5) {
+            currentPlayer = 'batman'
+        } else {
+            currentPlayer = 'superman'
+        }
+        console.log(currentPlayer);
+        performAction(currentPlayer)
+
+        if (currentPlayer === 'batman') {
+            currentPlayer = 'superman'
+        } else {
+            currentPlayer = 'batman'
+        }
+    })
+
+    
+}
+gameStart()
