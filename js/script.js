@@ -27,7 +27,7 @@ const batman = {
         } else if (udarac == 'none(default)') {
             console.log("Nema izabranog udarca.");
         } else {
-            alert ('Nepoznat udarac ili nedovoljno energije za surikene!')
+            alert('Nepoznat udarac ili nedovoljno energije za surikene!')
             return;
         }
         if (neprijatelj.izbegavanje) {
@@ -81,7 +81,7 @@ const superman = {
     },
     napadni(neprijatelj, udarac) {
         let steta = 0;
-        
+
         if (udarac == 'laser') {
             steta = 15;
             this.povecajEnergijuZaUdarac(udarac);
@@ -94,7 +94,7 @@ const superman = {
         } else if (udarac == 'none(default)') {
             console.log("Nema izabranog udarca.");
         } else {
-            alert ('Nepoznat udarac ili nedovoljno energije za super udarac!')
+            alert('Nepoznat udarac ili nedovoljno energije za super udarac!')
             return;
         }
         if (neprijatelj.blokiranje) {
@@ -110,7 +110,7 @@ const superman = {
         } else if (tipOdbrane == 'none(default)') {
             console.log("Nema izabranog udarca.");
         }
-          else {
+        else {
             console.log('Nepoznata odbrana ili nema dovoljno energije!');
         }
     },
@@ -168,10 +168,10 @@ function popuniSelectDef() {
 popuniSelectDef()
 // Funkcija za(ukljuci - iskljuci) obranu ili napad
 function AtkOrDef(attackElem, defenseElem) {
-    attackElem.addEventListener('change', function(){
+    attackElem.addEventListener('change', function () {
         defenseElem.disabled = this.value ? true : false;
     });
-    defenseElem.addEventListener('change', function(){
+    defenseElem.addEventListener('change', function () {
         attackElem.disabled = this.value ? true : false;
     });
 }
@@ -179,14 +179,14 @@ AtkOrDef(document.getElementById('batmanAttack'), document.getElementById('batma
 AtkOrDef(document.getElementById('supermanAttack'), document.getElementById('supermanDefense'));
 // Funkcija za otkljucavanje udaraca.
 function unlock(atkElem, defElem) {
-    atkElem.addEventListener('change', function(){
+    atkElem.addEventListener('change', function () {
         if (this.value === 'none(default)') {
             defElem.disabled = false;
         } else {
             defElem.disabled = true;
         }
     })
-    defElem.addEventListener('change', function(){
+    defElem.addEventListener('change', function () {
         if (this.value === 'none(default)') {
             atkElem.disabled = false;
         } else {
@@ -199,27 +199,59 @@ const batmanDefense = document.getElementById('batmanDefense');
 const supermanAttack = document.getElementById('supermanAttack');
 const supermanDefense = document.getElementById('supermanDefense');
 unlock(batmanAttack, batmanDefense);
-unlock(supermanAttack,supermanDefense);
+unlock(supermanAttack, supermanDefense);
+
+let trenutniIgrac = null
 
 function gameStart() {
-        document.getElementById('gameStart').addEventListener('click', function () {
-        let currentPlayer;
-        const randomValue = Math.round(Math.random());
-        if (randomValue <= 0.5) {
-            currentPlayer = 'batman'
-        } else {
-            currentPlayer = 'superman'
+    document.getElementById('gameStart').addEventListener('click', function () {
+        if (trenutniIgrac === null) {
+            const randomValue = Math.round(Math.random());
+            trenutniIgrac = randomValue <= 0.5 ? 'batman' : 'superman';
         }
-        console.log(currentPlayer);
-        performAction(currentPlayer)
-
-        if (currentPlayer === 'batman') {
-            currentPlayer = 'superman'
-        } else {
-            currentPlayer = 'batman'
-        }
+        document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} je na potezu`
     })
-
-    
 }
 gameStart()
+
+function updateLife(player, value) {
+    console.log("updateLife is called", player, value);
+    let elementId = ''
+    if (player === 'batman') {
+        elementId = 'batmanHealthP';
+    } else if (player === 'superman') {
+        elementId = 'supermanHealthP'
+    }
+    if (elementId) {
+        document.getElementById(elementId).innerText = "Zivot:" + value;
+    }
+}
+
+function performAction() {
+    console.log("performAction is called");
+    document.getElementById('attack').addEventListener('click', function(){
+        const batmanAtk = document.getElementById('batmanAttack').value;
+        const batmanDef = document.getElementById('batmanDefense').value;
+        const supermanAtk = document.getElementById('supermanAttack').value;
+        const supermanDef = document.getElementById('supermanDefense').value;
+
+        if (trenutniIgrac === 'batman') {
+            if (batmanAtk !== 'none(default)') {
+                batman.napadni(superman, batmanAtk);
+            } else if (batmanDef !== 'none(default)') {
+                batman.odbrana(batmanDef)
+            }
+        } else {
+            if (supermanAtk !== 'none(default)') {
+                superman.napadni(batman, supermanAtk);
+            } else if (supermanDef !== 'none(default)') {
+                superman.odbrana(supermanDef)
+            }
+
+        }
+        updateLife('batman', batman.zivot);
+        updateLife('superman', superman.zivot);
+    })
+    
+}
+performAction()
