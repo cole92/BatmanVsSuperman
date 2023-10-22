@@ -226,6 +226,18 @@ function updateLife(player, value) {
         document.getElementById(elementId).innerText = "Zivot:" + value;
     }
 }
+function updateEnergy(player, value) {
+    console.log('updateEnergy is called', player, value);
+    let elementId = ''
+    if (player === 'batman') {
+        elementId = 'batmanEnergyP';
+    } else if (player === 'superman') {
+        elementId = 'supermanEnergyP';
+    }
+    if (elementId) {
+        document.getElementById(elementId).innerText = `Energija: ${value}`
+    }
+}
 
 function performAction() {
     console.log("performAction is called");
@@ -251,6 +263,8 @@ function performAction() {
         }
         updateLife('batman', batman.zivot);
         updateLife('superman', superman.zivot);
+        updateEnergy('batman', batman.energija);
+        updateEnergy('superman', superman.energija);
     })
     
 }
