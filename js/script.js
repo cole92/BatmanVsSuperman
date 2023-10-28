@@ -30,6 +30,9 @@ const batman = {
             alert('Nepoznat udarac ili nedovoljno energije za surikene!')
             return;
         }
+
+        handleReservedEnergy(this, udarac, 'napad', 'batmanReservedEnergy')
+
         if (neprijatelj.izbegavanje) {
             steta = 0;
             neprijatelj.izbegavanje = false;
@@ -51,6 +54,7 @@ const batman = {
         } else {
             console.log('Nepoznata odbrana ili nedovoljno energije!');
         }
+        handleReservedEnergy(this, tipOdbrane, 'odbrana', 'batmanReservedEnergy')
     },
     povecajEnergiju(x) {
         this.energija += x;
@@ -97,6 +101,9 @@ const superman = {
             alert('Nepoznat udarac ili nedovoljno energije za super udarac!')
             return;
         }
+
+        handleReservedEnergy(this, udarac, 'napad', 'supermanReservedEnergy')
+
         if (neprijatelj.blokiranje) {
             steta *= 0.4;
             neprijatelj.blokiranje = false;
@@ -113,6 +120,9 @@ const superman = {
         else {
             console.log('Nepoznata odbrana ili nema dovoljno energije!');
         }
+
+        handleReservedEnergy(this, tipOdbrane, 'odbrana', 'supermanReservedEnergy')
+
     },
     povecajEnergiju(x) {
         this.energija += x;
@@ -210,7 +220,9 @@ function gameStart() {
             trenutniIgrac = randomValue <= 0.5 ? 'batman' : 'superman';
         }
         document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} je na potezu`
-    })
+        const start = document.getElementById('attack');
+            start.disabled = false;
+    })  
 }
 gameStart()
 
@@ -253,19 +265,52 @@ function performAction() {
             } else if (batmanDef !== 'none(default)') {
                 batman.odbrana(batmanDef)
             }
+            trenutniIgrac = 'superman';
         } else {
             if (supermanAtk !== 'none(default)') {
                 superman.napadni(batman, supermanAtk);
             } else if (supermanDef !== 'none(default)') {
                 superman.odbrana(supermanDef)
             }
-
+            trenutniIgrac = 'batman';
         }
         updateLife('batman', batman.zivot);
         updateLife('superman', superman.zivot);
         updateEnergy('batman', batman.energija);
         updateEnergy('superman', superman.energija);
+        document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`;
     })
     
 }
 performAction()
+
+function handleReservedEnergy(player, akcija, tip, elementId) {
+    let energyRequired = 0;
+    if (tip === 'napad') {
+        if (akcija === 'surikeni') {
+            energyRequired = 20;
+        } else if (akcija === 'super udarac') {
+            energyRequired = 30;
+        } else if (akcija === 'pesnica' || akcija === 'udarac nogom' || akcija === 'laser' || akcija === 'ledeni dah' || akcija === 'none(default)') {
+            energyRequired = 0;
+        }
+    } else if (tip === 'odbrana') {
+        if (akcija === 'blok') {
+            energyRequired = 40;
+        } else if (akcija === 'lecenje') {
+            energyRequired = 50;
+        } else if (akcija === 'izbegavanje') {
+            energyRequired = 70;
+        } else if ( akcija === 'none(default)') {
+            energyRequired = 0;
+        }
+    }
+
+    if (energyRequired > 0) {
+        player.rezervisanaEnergija += energyRequired;
+    } else {
+        player.energija += player.rezervisanaEnergija;
+        player.rezervisanaEnergija = 0
+    }
+    document.getElementById(elementId).innerText = 'Rezervisana Energija:' + player.rezervisanaEnergija;
+}
