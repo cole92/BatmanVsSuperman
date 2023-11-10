@@ -1,100 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      const batman = {
-        energija: 100,
-        oruzje: ["pesnica", "udarac nogom", "surikeni"],
-        blokiranje: false,
-        smanjiEnergiju(x) {
-          this.energija -= x;
-          if (this.energija <= 0) {
-            this.energija = 0;
-            console.log("Batman je mrtav!");
-          }
-        },
-        napadni(neprijatelj, udarac) {
-          let steta = 0;
 
-          if (udarac == "pesnica") {
-            steta = 10;
-          } else if (udarac == "udarac nogom") {
-            steta = 20;
-          } else if (udarac == "surikeni") {
-            steta = 50;
-          } else {
-            alert("Nepoznat udarac!");
-            return;
-          }
-          if (neprijatelj.izbegavanje) {
-            steta = 0;
-            neprijatelj.izbegavanje = false;
-          }
-          neprijatelj.smanjiEnergiju(steta);
-        },
-        odbrana(tipOdbrane) {
-          if (tipOdbrane == "blok") {
-            this.blokiranje = true;
-          } else if (tipOdbrane == "lecenje") {
-            this.energija += 40;
-            if (this.energija > 100) {
-              this.energija = 100;
-            }
-          } else {
-            console.log("Nepoznata odbrana!");
-          }
-        },
-      };
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
 
-      const superman = {
-        energija: 100,
-        oruzje: ["laser", "ledeni dah", "super udarac"],
-        izbegavanje: false,
-        smanjiEnergiju(x) {
-          this.energija -= x;
-          if (this.energija <= 0) {
-            this.energija = 0;
-            console.log("Superman je mrtav!");
-          }
-        },
-        napadni(neprijatelj, udarac) {
-          let steta = 0;
-          if (udarac == "laser") {
-            steta = 30;
-          } else if (udarac == "ledeni dah") {
-            steta = 40;
-          } else if (udarac == "super udarac") {
-            steta = 60;
-          } else {
-            alert("Nepoznat udarac!");
-            return;
-          }
-          if (neprijatelj.blokiranje) {
-            steta *= 0.4;
-            neprijatelj.blokiranje = false;
-          }
-          neprijatelj.smanjiEnergiju(steta);
-        },
-        odbrana(tipOdbrane) {
-          if (tipOdbrane == "izbegavanje") {
-            this.izbegavanje = true;
-          } else {
-            console.log("Nepoznata odbrana!");
-          }
-        },
-      };
+<body>
+  <div class="container">
+    <p id="currentPlayerDisplay">Trenutni igrač: </p>
+    <section class="hero" id="batman">
+      <h2>Batman</h2>
+      <!--Ovde dodajem kontrole i sve sto zelim za batmana.-->
+      SLIKA
 
-      batman.napadni(superman, 'surikeni')
-      console.log(superman.energija);
-      superman.odbrana('izbegavanje')
-      batman.napadni(superman, 'surikeni')
-      console.log(superman.energija);
-      
-    </script>
-  </body>
+      <label for="batmanAttack">Izaberi napad:</label>
+      <select id="batmanAttack"></select>
+
+      <label for="batmanDefense">Izaberi odbranu:</label>
+      <select id="batmanDefense" disabled></select>
+
+      <div class="energyDiv">
+        <p id="batmanHealthP">Zivot: 100</p>
+        <p id="batmanEnergyP">Energija: 0</p>
+      </div>
+    </section>
+
+    <section class="hero" id="superman">
+      <h2>Superman</h2>
+      <!--Ovde dodajemo Kontrole i sve sto zelimo za supermana.-->
+      SLIKA
+
+      <label for="supermanAttack">Izaberi napad:</label>
+      <select id="supermanAttack"></select>
+
+      <label for="supermanDefense">Izaberi odbranu:</label>
+      <select id="supermanDefense" disabled></select>
+
+      <div class="energyDiv">
+        <p id="supermanHealthP">Zivot: 100</p>
+        <p id="supermanEnergyP">Energija: 0</p>
+      </div>
+    </section>
+
+    <button id="gameStart">Start</button>
+    <button id="attack" disabled>Attack</button>
+    <button id="restart">Restart</button>
+  </div>
+  
+  <script src="js/script.js"></script>
 </html>
