@@ -330,10 +330,13 @@ function performAction() {
                 napadUspesanBatman = izvrsiAkcijuZaBatman();
             }
         }
-        if (napadUspesanBatman || napadUspesanSuperman) {
+
+        if (napadUspesanBatman && napadUspesanSuperman) {
+            // Ako su oba napada uspešna, promeni trenutnog igrača
             trenutniIgrac = trenutniIgrac === 'batman' ? 'superman' : 'batman';
         } else {
-            alert ('Nijedan napad nije uspesan!')
+            // Ako jedan od napada nije uspešan, obavesti igrača
+            alert('Jedan od igrača nije uspeo u napadu/odbrani. Pokušajte ponovo.');
         }
 
         updateLife('batman', batman.zivot);
@@ -342,9 +345,7 @@ function performAction() {
         updateEnergy('superman', superman.energija);
         document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`;
     })
-
 }
 performAction()
 
 // Funkcija za restart
-
