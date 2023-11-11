@@ -8,7 +8,8 @@ const batman = {
         this.zivot -= x;
         if (this.zivot <= 0) {
             this.zivot = 0;
-            alert('Batman je mrtav!')
+            const poruka = this === batman ? 'Batman je mrtav, Superman je pobedio!' : 'Superman je mrtav, Batman je pobedio!';
+            document.getElementById('krajIgre').innerText = poruka;
             document.getElementById("attack").disabled = true;
             document.getElementById("gameStart").disabled = true;
         }
@@ -94,7 +95,8 @@ const superman = {
         this.zivot -= x;
         if (this.zivot <= 0) {
             this.zivot = 0;
-            alert('Superman je mrtav');
+            const poruka = this === batman ? 'Batman je mrtav, Superman je pobedio!' : 'Superman je mrtav, Batman je pobedio!';
+            document.getElementById('krajIgre').innerText = poruka;
             document.getElementById("attack").disabled = true;
             document.getElementById("gameStart").disabled = true;
         }
@@ -316,36 +318,37 @@ function izvrsiAkcijuZaSuperman() {
 function performAction() {
     console.log("performAction is called");
     document.getElementById('attack').addEventListener('click', function () {
-        let napadUspesanBatman = false;
-        let napadUspesanSuperman = false;
-
         if (trenutniIgrac === 'batman') {
-            napadUspesanBatman = izvrsiAkcijuZaBatman();
+            const napadUspesanBatman = izvrsiAkcijuZaBatman();
             if (napadUspesanBatman) {
-                napadUspesanSuperman = izvrsiAkcijuZaSuperman();
+                setTimeout(() => {
+                    izvrsiAkcijuZaSuperman();
+                    nakonAkcije();
+                }, 1000);
+            } else {
+                alert('Batman nije uspeo da izvede akciju!')
             }
         } else {
-            napadUspesanSuperman = izvrsiAkcijuZaSuperman();
+            const napadUspesanSuperman = izvrsiAkcijuZaSuperman();
             if (napadUspesanSuperman) {
-                napadUspesanBatman = izvrsiAkcijuZaBatman();
+                setTimeout(() => {
+                    izvrsiAkcijuZaBatman();
+                    nakonAkcije();
+                }, 1000);
+            } else {
+                alert('Superman nije uspeo da izvede akciju!')
             }
         }
-
-        if (napadUspesanBatman && napadUspesanSuperman) {
-            // Ako su oba napada uspešna, promeni trenutnog igrača
-            trenutniIgrac = trenutniIgrac === 'batman' ? 'superman' : 'batman';
-        } else {
-            // Ako jedan od napada nije uspešan, obavesti igrača
-            alert('Jedan od igrača nije uspeo u napadu/odbrani. Pokušajte ponovo.');
-        }
-
-        updateLife('batman', batman.zivot);
-        updateLife('superman', superman.zivot);
-        updateEnergy('batman', batman.energija);
-        updateEnergy('superman', superman.energija);
-        document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`;
     })
 }
-performAction()
 
+function nakonAkcije() {
+    trenutniIgrac = trenutniIgrac === 'batman' ? 'superman' : 'batman';
+    updateLife('batman', batman.zivot);
+    updateLife('superman', superman.zivot);
+    updateEnergy('batman', batman.energija);
+    updateEnergy('superman', superman.energija);
+    document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`;
+}
+performAction()
 // Funkcija za restart
