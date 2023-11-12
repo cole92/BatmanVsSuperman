@@ -9,45 +9,50 @@
 </head>
 
 <body>
-  <div class="container">
-    <p id="currentPlayerDisplay">Trenutni igrač: </p>
-    <section class="hero" id="batman">
-      <h2>Batman</h2>
-      <!--Ovde dodajem kontrole i sve sto zelim za batmana.-->
-      SLIKA
+  <div class="mainContainer">
+    <p id="currentPlayerDisplay">Trenutni igrac: </p>
+    <div class="heroesContainer">
+      <section class="hero" id="batman">
+        <h2>Batman</h2>
+        <!--Ovde dodajem kontrole i sve sto zelim za batmana.-->
+        SLIKA
+  
+        <label for="batmanAttack">Izaberi napad:</label>
+        <select id="batmanAttack"></select>
+  
+        <label for="batmanDefense">Izaberi odbranu:</label>
+        <select id="batmanDefense" disabled></select>
+  
+        <div class="energyDiv">
+          <p id="batmanHealthP">Zivot: 100</p>
+          <p id="batmanEnergyP">Energija: 0</p>
+        </div>
+      </section>
+  
+      <section class="hero" id="superman">
+        <h2>Superman</h2>
+        <!--Ovde dodajemo Kontrole i sve sto zelimo za supermana.-->
+        SLIKA
+  
+        <label for="supermanAttack">Izaberi napad:</label>
+        <select id="supermanAttack"></select>
+  
+        <label for="supermanDefense">Izaberi odbranu:</label>
+        <select id="supermanDefense" disabled></select>
+  
+        <div class="energyDiv">
+          <p id="supermanHealthP">Zivot: 100</p>
+          <p id="supermanEnergyP">Energija: 0</p>
+        </div>
+      </section>
 
-      <label for="batmanAttack">Izaberi napad:</label>
-      <select id="batmanAttack"></select>
+    </div>
 
-      <label for="batmanDefense">Izaberi odbranu:</label>
-      <select id="batmanDefense" disabled></select>
-
-      <div class="energyDiv">
-        <p id="batmanHealthP">Zivot: 100</p>
-        <p id="batmanEnergyP">Energija: 0</p>
-      </div>
-    </section>
-
-    <section class="hero" id="superman">
-      <h2>Superman</h2>
-      <!--Ovde dodajemo Kontrole i sve sto zelimo za supermana.-->
-      SLIKA
-
-      <label for="supermanAttack">Izaberi napad:</label>
-      <select id="supermanAttack"></select>
-
-      <label for="supermanDefense">Izaberi odbranu:</label>
-      <select id="supermanDefense" disabled></select>
-
-      <div class="energyDiv">
-        <p id="supermanHealthP">Zivot: 100</p>
-        <p id="supermanEnergyP">Energija: 0</p>
-      </div>
-    </section>
-
-    <button id="gameStart">Start</button>
-    <button id="attack" disabled>Attack</button>
-    <button id="restart">Restart</button>
+    <div class="buttonContainer">
+      <button id="gameStart">Start</button>
+      <button id="attack" disabled>Attack</button>
+      <button id="restart">Restart</button>
+    </div>
     <p id="krajIgre"></p>
   </div>
   

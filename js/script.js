@@ -279,7 +279,7 @@ function updateLife(player, value) {
         elementId = 'supermanHealthP'
     }
     if (elementId) {
-        document.getElementById(elementId).innerText = "Zivot:" + value;
+        document.getElementById(elementId).innerText = "Zivot:" + " " + value;
     }
 }
 // Funkcija za azuriranje energije
@@ -352,3 +352,29 @@ function nakonAkcije() {
 }
 performAction()
 // Funkcija za restart
+function restartIgre() {
+    batman.zivot = 100;
+    batman.energija = 0;
+    batman.blokiranje = false;
+
+    superman.zivot = 100;
+    superman.energija = 0;
+    superman.blokiranje = false;
+
+    trenutniIgrac = null;
+
+    updateLife('batman', batman.zivot);
+    updateLife('superman', superman.zivot);
+    updateEnergy('batman', batman.energija);
+    updateEnergy('superman', superman.energija);
+    document.getElementById('currentPlayerDisplay').innerText = 'Trenutni igrac:';
+
+    document.getElementById('batmanAttack').selectedIndex = 0;
+    document.getElementById('batmanDefense').selectedIndex = 0;
+    document.getElementById('supermanAttack').selectedIndex = 0;
+    document.getElementById('supermanDefense').selectedIndex = 0;
+
+    document.getElementById('gameStart').disabled = false;
+    document.getElementById('attack').disabled = true;
+}
+document.getElementById('restart').addEventListener('click', restartIgre);

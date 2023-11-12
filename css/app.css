@@ -1,12 +1,38 @@
-.container {
+.mainContainer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    height: 100vh;
+    max-height: 100vh;
+    padding: 20px 0;
+    box-sizing: border-box;
 }
+.heroesContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
 .hero {
     flex: 1;
     padding: 20px;
     border: 1px solid black;
     box-sizing: border-box;
+}
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    
+}
+.buttonContainer button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-sizing: border-box;
+    
 }
