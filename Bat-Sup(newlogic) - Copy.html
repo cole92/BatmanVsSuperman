@@ -15,10 +15,10 @@
       <section class="hero" id="batman">
         <!--Ovde dodajem kontrole i sve sto zelim za batmana.-->
         <div class="iconDivs" id="batmanIconDiv">
-          <h2>Batman</h2>
+          <h2 class="heroName">Batman</h2>
           <div class="energyDiv" id="batLifeAndHealth">
-            <p id="batmanHealthP">Zivot: 100</p>
-            <p id="batmanEnergyP">Energija: 0</p>
+            <p class="indicatorColor" id="batmanHealthP">Zivot: 100</p>
+            <p class="indicatorColor" id="batmanEnergyP">Energija: 0</p>
           </div>
           <img src="css/pictures/batman/batman1.jpg" alt="Batman-Icon" id="batmanIcon">
         </div>
@@ -37,10 +37,10 @@
       <section class="hero">
         <!--Ovde dodajemo Kontrole i sve sto zelimo za supermana.-->
         <div class="iconDivs" id="supermanIconDiv">
-          <h2>Superman</h2>
+          <h2 class="heroName">Superman</h2>
           <div class="energyDiv" id="supLifeAndHealth">
-            <p id="supermanHealthP">Zivot: 100</p>
-            <p id="supermanEnergyP">Energija: 0</p>
+            <p class="indicatorColor" id="supermanHealthP">Zivot: 100</p>
+            <p class="indicatorColor" id="supermanEnergyP">Energija: 0</p>
           </div>
           <img src="css/pictures/superman/superman1.jpg" alt="Superman-Icon" id="supermanIcon">
         </div>
@@ -52,8 +52,6 @@
         <label for="supermanDefense">Izaberi odbranu:</label>
         <select id="supermanDefense" disabled></select>
         </div>
-  
-        
       </section>
 
     </div>
@@ -66,7 +64,7 @@
     <p id="krajIgre"></p>
   </div>
   <audio autoplay loop>
-    <!--<source src="music/boss.mp3" type="audio/mpeg">-->
+    <source src="music/boss.mp3" type="audio/mpeg">
   </audio>
   
   <script src="js/script.js"></script>

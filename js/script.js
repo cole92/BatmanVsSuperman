@@ -349,7 +349,7 @@ function performAction() {
 
         if (mozeBatman && mozeSuperman) {
             izvrsiAkcijuZaBatman(false);
-            setTimeout(() => {
+            setTimeout(() => {                      //  Mozda malo srediti timer.
                 izvrsiAkcijuZaSuperman(false);
                 nakonAkcije();
             }, 1000);
@@ -394,6 +394,7 @@ function restartIgre() {
     updateEnergy('batman', batman.energija);
     updateEnergy('superman', superman.energija);
     document.getElementById('currentPlayerDisplay').innerText = 'Pritisni START za pocetak igre';
+    document.getElementById('krajIgre').innerText = ''
 
     document.getElementById('batmanAttack').selectedIndex = 0;
     document.getElementById('batmanDefense').selectedIndex = 0;
