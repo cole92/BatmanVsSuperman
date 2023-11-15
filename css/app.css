@@ -1,3 +1,9 @@
+/*body {
+    background-image: url(pictures/background/noc1.gif);
+    background-size: cover;
+    background-position: center;
+    max-height: 100px;
+}*/
 .mainContainer {
     display: flex;
     flex-direction: column;
@@ -18,9 +24,44 @@
 .hero {
     flex: 1;
     padding: 20px;
-    border: 1px solid black;
     box-sizing: border-box;
 }
+#supermanIconDiv {
+    text-align: end;
+}
+#batmanIcon {
+    width: 25%;
+}
+#supermanIcon {
+    width: 25%;
+}
+#supControls {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-top: 20px;
+    gap: 10px;
+}
+#batControls {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 20px;
+    gap: 10px;
+}
+#supLifeAndHealth {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 20px;
+}
+#batLifeAndHealth {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 20px;
+}
+
 .buttonContainer {
     display: flex;
     justify-content: center;
@@ -34,5 +75,6 @@
     font-size: 1rem;
     cursor: pointer;
     box-sizing: border-box;
+    margin-top: 160px;
     
 }

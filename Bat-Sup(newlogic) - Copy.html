@@ -10,40 +10,50 @@
 
 <body>
   <div class="mainContainer">
-    <p id="currentPlayerDisplay">Trenutni igrac: </p>
+    <p id="currentPlayerDisplay">Pritisni START za pocetak igre </p>
     <div class="heroesContainer">
       <section class="hero" id="batman">
-        <h2>Batman</h2>
         <!--Ovde dodajem kontrole i sve sto zelim za batmana.-->
-        SLIKA
+        <div class="iconDivs" id="batmanIconDiv">
+          <h2>Batman</h2>
+          <div class="energyDiv" id="batLifeAndHealth">
+            <p id="batmanHealthP">Zivot: 100</p>
+            <p id="batmanEnergyP">Energija: 0</p>
+          </div>
+          <img src="css/pictures/batman/batman1.jpg" alt="Batman-Icon" id="batmanIcon">
+        </div>
   
+        <div class="controls" id="batControls">
         <label for="batmanAttack">Izaberi napad:</label>
         <select id="batmanAttack"></select>
   
         <label for="batmanDefense">Izaberi odbranu:</label>
         <select id="batmanDefense" disabled></select>
-  
-        <div class="energyDiv">
-          <p id="batmanHealthP">Zivot: 100</p>
-          <p id="batmanEnergyP">Energija: 0</p>
         </div>
+  
+        
       </section>
   
-      <section class="hero" id="superman">
-        <h2>Superman</h2>
+      <section class="hero">
         <!--Ovde dodajemo Kontrole i sve sto zelimo za supermana.-->
-        SLIKA
+        <div class="iconDivs" id="supermanIconDiv">
+          <h2>Superman</h2>
+          <div class="energyDiv" id="supLifeAndHealth">
+            <p id="supermanHealthP">Zivot: 100</p>
+            <p id="supermanEnergyP">Energija: 0</p>
+          </div>
+          <img src="css/pictures/superman/superman1.jpg" alt="Superman-Icon" id="supermanIcon">
+        </div>
   
+        <div class="controls" id="supControls">
         <label for="supermanAttack">Izaberi napad:</label>
         <select id="supermanAttack"></select>
   
         <label for="supermanDefense">Izaberi odbranu:</label>
         <select id="supermanDefense" disabled></select>
-  
-        <div class="energyDiv">
-          <p id="supermanHealthP">Zivot: 100</p>
-          <p id="supermanEnergyP">Energija: 0</p>
         </div>
+  
+        
       </section>
 
     </div>
@@ -55,6 +65,9 @@
     </div>
     <p id="krajIgre"></p>
   </div>
+  <audio autoplay loop>
+    <!--<source src="music/boss.mp3" type="audio/mpeg">-->
+  </audio>
   
   <script src="js/script.js"></script>
 </html>
