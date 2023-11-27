@@ -8,61 +8,71 @@ const batman = {
         this.zivot -= x;
         if (this.zivot <= 0) {
             this.zivot = 0;
-            alert('Batman je mrtav!')
+            const poruka = this === batman ? 'Batman je mrtav, Superman je pobedio!' : 'Superman je mrtav, Batman je pobedio!';
+            document.getElementById('krajIgre').innerText = poruka;
             document.getElementById("attack").disabled = true;
             document.getElementById("gameStart").disabled = true;
         }
     },
-    napadni(neprijatelj, udarac) {
+    // Metode za napad i odbranu.  
+    napadni(neprijatelj, udarac, checkOnly) {
         let steta = 0;
         let napadUspesan = true;
-
+    
         if (udarac == 'Pesnica(10 dmg)') {
             steta = 10;
-            this.povecajEnergijuZaUdarac(udarac);
         } else if (udarac == 'Udarac nogom(15 dmg)') {
             steta = 15;
-            this.povecajEnergijuZaUdarac(udarac);
         } else if (udarac == 'Surikeni(20 energije)(30 dmg)') {
             if (this.energija >= 20) {
                 steta = 30;
-                this.energija -= 20;
             } else {
-                alert('Nedovoljno energije za surikene!');
+                console.log('Nedovoljno energije za surikene!');
                 napadUspesan = false;
             }
         } else if (udarac == 'none(default)') {
             console.log('Nema izabranog udarca!');
+            napadUspesan = false;
         }
-        if (napadUspesan) {
+    
+        if (napadUspesan && !checkOnly) {
+            if (udarac == 'Surikeni(20 energije)(30 dmg)') {
+                this.energija -= 20;
+            }
             if (neprijatelj.blokiranje) {
                 steta = 0;
                 neprijatelj.blokiranje = false;
             }
+            this.povecajEnergijuZaUdarac(udarac);
             neprijatelj.smanjiZivot(steta);
         }
         return napadUspesan;
     },
-    odbrana(tipOdbrane) {
+    
+    odbrana(tipOdbrane, checkOnly) {
         let odbranaUspesna = true;
-
+    
         if (tipOdbrane == 'Blok(40 energije)') {
             if (this.energija >= 40) {
-                this.energija -= 40;
-                this.blokiranje = true;
+                if (!checkOnly) {
+                    this.energija -= 40;
+                    this.blokiranje = true;
+                }
             } else {
-            console.log('Nedovoljno energije za blok!');
-            odbranaUspesna = false;
+                console.log('Nedovoljno energije za blok!');
+                odbranaUspesna = false;
             }
         } else if (tipOdbrane == 'Lecenje(50 energije)') {
             if (this.energija >= 50) {
-                this.energija -= 50;
-                this.zivot += 50;
-                if (this.zivot > 100) {
-                    this.zivot = 100;
+                if (!checkOnly) {
+                    this.energija -= 50;
+                    this.zivot += 50;
+                    if (this.zivot > 100) {
+                        this.zivot = 100;
+                    }
                 }
             } else {
-                alert('Nedovoljno energije za lecenje!');
+                console.log('Nedovoljno energije za lecenje!');
                 odbranaUspesna = false;
             }
         } else if (tipOdbrane == 'none(default)') {
@@ -71,12 +81,14 @@ const batman = {
         }
         return odbranaUspesna;
     },
+    
     povecajEnergiju(x) {
         this.energija += x;
         if (this.energija >= 100) {
             this.energija = 100;
         }
     },
+    
     povecajEnergijuZaUdarac(udarac) {
         if (udarac == 'Pesnica(10 dmg)' || udarac == 'Udarac nogom(15 dmg)') {
             this.povecajEnergiju(30)
@@ -94,64 +106,73 @@ const superman = {
         this.zivot -= x;
         if (this.zivot <= 0) {
             this.zivot = 0;
-            alert('Superman je mrtav');
+            const poruka = this === batman ? 'Batman je mrtav, Superman je pobedio!' : 'Superman je mrtav, Batman je pobedio!';
+            document.getElementById('krajIgre').innerText = poruka;
             document.getElementById("attack").disabled = true;
             document.getElementById("gameStart").disabled = true;
         }
     },
-    napadni(neprijatelj, udarac) {
+    napadni(neprijatelj, udarac, checkOnly) {
         let steta = 0;
         let napadUspesan = true;
-
+    
         if (udarac == 'Laser(15 dmg)') {
             steta = 15;
-            this.povecajEnergijuZaUdarac(udarac);
         } else if (udarac == 'Ledeni dah(25 dmg)') {
             steta = 25;
-            this.povecajEnergijuZaUdarac(udarac);
         } else if (udarac == 'Super udarac(30 energije)(40 dmg)') {
             if (this.energija >= 30) {
                 steta = 40;
-                this.energija -= 30;
             } else {
-                alert('Nedovoljno energije za super udarac!');
+                console.log('Nedovoljno energije za super udarac!');
                 napadUspesan = false;
-        } 
+            }
         } else if (udarac == 'none(default)') {
             console.log("Nema izabranog udarca.");
+            napadUspesan = false;
         }
-        if (napadUspesan) {
+    
+        if (napadUspesan && !checkOnly) {
+            if (udarac == 'Super udarac(30 energije)(40 dmg)') {
+                this.energija -= 30;
+            }
             if (neprijatelj.blokiranje) {
                 steta *= 0.4;
                 neprijatelj.blokiranje = false;
             }
+            this.povecajEnergijuZaUdarac(udarac);
             neprijatelj.smanjiZivot(steta);
         }
         return napadUspesan;
     },
-    odbrana(tipOdbrane) {
+    
+    odbrana(tipOdbrane, checkOnly) {
         let odbranaUspesna = true;
-
+    
         if (tipOdbrane == 'Izbegavanje(70 energije)') {
             if (this.energija >= 70) {
-                this.energija -= 70;
-                this.izbegavanje = true;
+                if (!checkOnly) {
+                    this.energija -= 70;
+                    this.izbegavanje = true;
+                }
             } else {
-                alert('Nedovoljno energije za izbegavanje!');
+                console.log('Nedovoljno energije za izbegavanje!');
                 odbranaUspesna = false;
-            }   
+            }
         } else if (tipOdbrane == 'none(default)') {
             console.log("Nema izabranog tipa odbrane.");
             odbranaUspesna = false;
         }
         return odbranaUspesna;
     },
+    
     povecajEnergiju(x) {
         this.energija += x;
         if (this.energija >= 100) {
             this.energija = 100;
         }
     },
+    
     povecajEnergijuZaUdarac(udarac) {
         if (udarac == 'Laser(15 dmg)' || udarac == 'Ledeni dah(25 dmg)') {
             this.povecajEnergiju(30)
@@ -261,7 +282,7 @@ function gameStart() {
             const randomValue = Math.round(Math.random());
             trenutniIgrac = randomValue <= 0.5 ? 'batman' : 'superman';
         }
-        document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} je na potezu`
+        document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`
         const start = document.getElementById('attack');
             start.disabled = false;
     })  
@@ -277,7 +298,7 @@ function updateLife(player, value) {
         elementId = 'supermanHealthP'
     }
     if (elementId) {
-        document.getElementById(elementId).innerText = "Zivot:" + value;
+        document.getElementById(elementId).innerText = "Zivot:" + " " + value;
     }
 }
 // Funkcija za azuriranje energije
@@ -295,57 +316,92 @@ function updateEnergy(player, value) {
 }
 // Funkcija za logiku napada
 
-function izvrsiAkcijuZaBatman() {
-    if (document.getElementById('batmanAttack').value !== 'none(default)') {
-     return batman.napadni(superman, document.getElementById('batmanAttack').value);
-    } else if (document.getElementById('batmanDefense').value !== 'none(default)') {
-        batman.odbrana(document.getElementById('batmanDefense').value);
+function izvrsiAkcijuZaBatman(checkOnly) {
+    let napadUspesan = true;
+    const odabraniNapad = document.getElementById('batmanAttack').value;
+    const odabranaOdbrana = document.getElementById('batmanDefense').value;
+
+    if (odabraniNapad !== 'none(default)') {
+        napadUspesan = batman.napadni(superman, odabraniNapad, checkOnly);
+    } else if (odabranaOdbrana !== 'none(default)') {
+        napadUspesan = batman.odbrana(odabranaOdbrana, checkOnly);
     }
-    return true
+    return napadUspesan;
 }
 
-function izvrsiAkcijuZaSuperman() {
-    if (document.getElementById('supermanAttack').value !== 'none(default)') {
-       return superman.napadni(batman, document.getElementById('supermanAttack').value);
-    } else if (document.getElementById('supermanDefense').value !== 'none(default)') {
-        superman.odbrana(document.getElementById('supermanDefense').value);
+function izvrsiAkcijuZaSuperman(checkOnly) {
+    let napadUspesan = true;
+    const odabraniNapad = document.getElementById('supermanAttack').value;
+    const odabranaOdbrana = document.getElementById('supermanDefense').value;
+
+    if (odabraniNapad !== 'none(default)') {
+        napadUspesan = superman.napadni(batman, odabraniNapad, checkOnly);
+    } else if (odabranaOdbrana !== 'none(default)') {
+        napadUspesan = superman.odbrana(odabranaOdbrana, checkOnly);
     }
-    return true
+    return napadUspesan;
 }
 
 function performAction() {
-    console.log("performAction is called");
     document.getElementById('attack').addEventListener('click', function () {
-        let napadUspesanBatman = false;
-        let napadUspesanSuperman = false;
+        const mozeBatman = izvrsiAkcijuZaBatman(true);
+        const mozeSuperman = izvrsiAkcijuZaSuperman(true);
 
-        if (trenutniIgrac === 'batman') {
-            napadUspesanBatman = izvrsiAkcijuZaBatman();
-            if (napadUspesanBatman) {
-                napadUspesanSuperman = izvrsiAkcijuZaSuperman();
-            }
+        if (mozeBatman && mozeSuperman) {
+            izvrsiAkcijuZaBatman(false);
+            setTimeout(() => {                      //  Mozda malo srediti timer.
+                izvrsiAkcijuZaSuperman(false);
+                nakonAkcije();
+            }, 1000);
         } else {
-            napadUspesanSuperman = izvrsiAkcijuZaSuperman();
-            if (napadUspesanSuperman) {
-                napadUspesanBatman = izvrsiAkcijuZaBatman();
-            }
+            alert('Jedan od igrača ne može da izvede akciju!');
         }
-
-        if (napadUspesanBatman && napadUspesanSuperman) {
-            // Ako su oba napada uspešna, promeni trenutnog igrača
-            trenutniIgrac = trenutniIgrac === 'batman' ? 'superman' : 'batman';
-        } else {
-            // Ako jedan od napada nije uspešan, obavesti igrača
-            alert('Jedan od igrača nije uspeo u napadu/odbrani. Pokušajte ponovo.');
-        }
-
-        updateLife('batman', batman.zivot);
-        updateLife('superman', superman.zivot);
-        updateEnergy('batman', batman.energija);
-        updateEnergy('superman', superman.energija);
-        document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`;
     })
 }
-performAction()
 
+function nakonAkcije() {
+    trenutniIgrac = trenutniIgrac === 'batman' ? 'superman' : 'batman';
+    updateLife('batman', batman.zivot);
+    updateLife('superman', superman.zivot);
+    updateEnergy('batman', batman.energija);
+    updateEnergy('superman', superman.energija);
+    document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`;
+}
+
+function nakonAkcije() {
+    trenutniIgrac = trenutniIgrac === 'batman' ? 'superman' : 'batman';
+    updateLife('batman', batman.zivot);
+    updateLife('superman', superman.zivot);
+    updateEnergy('batman', batman.energija);
+    updateEnergy('superman', superman.energija);
+    document.getElementById('currentPlayerDisplay').innerText = `${trenutniIgrac} prvi napada`;
+}
+performAction()
 // Funkcija za restart
+function restartIgre() {
+    batman.zivot = 100;
+    batman.energija = 0;
+    batman.blokiranje = false;
+
+    superman.zivot = 100;
+    superman.energija = 0;
+    superman.blokiranje = false;
+
+    trenutniIgrac = null;
+
+    updateLife('batman', batman.zivot);
+    updateLife('superman', superman.zivot);
+    updateEnergy('batman', batman.energija);
+    updateEnergy('superman', superman.energija);
+    document.getElementById('currentPlayerDisplay').innerText = 'Pritisni START za pocetak igre';
+    document.getElementById('krajIgre').innerText = ''
+
+    document.getElementById('batmanAttack').selectedIndex = 0;
+    document.getElementById('batmanDefense').selectedIndex = 0;
+    document.getElementById('supermanAttack').selectedIndex = 0;
+    document.getElementById('supermanDefense').selectedIndex = 0;
+
+    document.getElementById('gameStart').disabled = false;
+    document.getElementById('attack').disabled = true;
+}
+document.getElementById('restart').addEventListener('click', restartIgre);
